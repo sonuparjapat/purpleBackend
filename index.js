@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use("/user",userRouter)
-app.use("/addallproduct",allproductRoute)
+app.use("/products",allproductRoute)
 app.use(auth)
 app.use("/userdata",productRouter)
 app.listen(8080,async()=>{

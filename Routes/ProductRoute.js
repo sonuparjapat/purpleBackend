@@ -12,10 +12,11 @@ res.status(200).send({msg:"products added"})
 }catch(err){
     res.status(400).send({msg:"something going wrong"})
 }
+})
+allproductRoute.get("/all",async(req,res)=>{
 
-
-
-
+    const data=await allproducts.find()
+    res.status(200).json({"msg":"success","data":data})
 })
 
 allproductRoute.patch("/edit",async(req,res)=>{
