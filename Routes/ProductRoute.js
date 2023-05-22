@@ -14,8 +14,10 @@ res.status(200).send({msg:"products added"})
 }
 })
 allproductRoute.get("/all",async(req,res)=>{
+const {limit,page}=req.query
 
-    const data=await allproducts.find()
+console.log(limit,page)
+    const data=await allproducts.find().skip((page*limit)-limit).limit(limit)
     res.status(200).json({"msg":"success","data":data})
 })
 
