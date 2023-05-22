@@ -22,11 +22,21 @@ allproductRoute.delete("/deleteall",async(req,res)=>{
     }
     })
 allproductRoute.get("/all",async(req,res)=>{
-const {limit,page,discountrange,productbrand}=req.query
+const {limit,page,range,discountrange,productbrand}=req.query
+const allquery={}
+if(productbrand){
+    allquery.productbrand=productbrand
+}
+if(range){
+  
+    allquery.range=range
+}
+if(discountrange){
+    allquery.discountrange=discountrange
+}
+console.log(allquery)
 
-
-console.log(limit,page)
-    const data=await allproducts.find().skip((page*limit)-limit).limit(limit)
+    const data=await allproducts.find(allquery).skip((page*limit)-limit).limit(limit)
     res.status(200).json({"msg":"success","data":data})
 })
 
