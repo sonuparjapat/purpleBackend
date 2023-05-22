@@ -4,7 +4,7 @@ const schema=mongoose.Schema({
     "ratings":String,
 "ratingcount":String,
 "img":String,
-"product-brand":String,
+"productbrand":String,
 "product-price":String,
 "product-sizeButton":String,
 "price":String,

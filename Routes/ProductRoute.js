@@ -5,7 +5,7 @@ const allproductRoute=express.Router()
 
 
 
-allproductRoute.post("/addproduct",async(req,res)=>{
+allproductRoute.post("/addall",async(req,res)=>{
 try{
 await allproducts.insertMany(req.body)
 res.status(200).send({msg:"products added"})
@@ -13,8 +13,17 @@ res.status(200).send({msg:"products added"})
     res.status(400).send({msg:"something going wrong"})
 }
 })
+allproductRoute.delete("/deleteall",async(req,res)=>{
+    try{
+    await allproducts.deleteMany()
+    res.status(200).send({msg:"allproducts deleted"})
+    }catch(err){
+        res.status(400).send({msg:"something going wrong"})
+    }
+    })
 allproductRoute.get("/all",async(req,res)=>{
-const {limit,page}=req.query
+const {limit,page,discountrange,productbrand}=req.query
+
 
 console.log(limit,page)
     const data=await allproducts.find().skip((page*limit)-limit).limit(limit)
