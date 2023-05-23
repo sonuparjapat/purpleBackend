@@ -34,11 +34,23 @@ if(range){
 if(discountrange){
     allquery.discountrange=discountrange
 }
-console.log(allquery)
+
 
     const data=await allproducts.find(allquery).skip((page*limit)-limit).limit(limit)
     res.status(200).json({"msg":"success","data":data})
 })
+allproductRoute.get("/single/:id",async(req,res)=>{
+  const {id}=req.params
+  
+   
+    
+       try{
+
+        const data=await allproducts.findOne({"_id":id})
+        res.status(200).json({"msg":"success","data":data})}catch(err){
+            res.status(400).json({"msg":"something going wrong"})
+        }
+    })
 
 allproductRoute.patch("/edit",async(req,res)=>{
 const {id}=req.params
