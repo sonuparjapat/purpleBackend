@@ -12,6 +12,24 @@ productRouter.get("/userproduct",async(req,res)=>{
         res.status(400).send({msg:"something Going Wrong"})
     }
 })
+productRouter.post("/add",async(req,res)=>{
+    // console.log(await userProduct.find({"userId":req.body.userId}))
+    // console.log(req.body)
+    const data=await userProduct.findOne(req.body)
+    if(data){
+        res.status(400).json({"msg":"Product is Already in Cart","type":"error"})
+    }
+    else{
+
+    
+        try{
+            const data=new userProduct(req.body)
+            await data.save()
+            res.status(200).json({msg:"Product added to cart","type":"success"})
+        }catch(err){
+            res.status(400).send({msg:"something Going Wrong"})
+        }}
+    })
 productRouter.patch("/userproduct/:id",async(req,res)=>{
     // console.log(await userProduct.find({"userId":req.body.userId}))
     // console.log(req.body)

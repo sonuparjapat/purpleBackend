@@ -1,12 +1,19 @@
 const mongoose=require("mongoose")
 
 const schema=mongoose.Schema({
-    "name":{type:String,require:true},
-
-    "description":{type:String,require:true},
-    "image":{type:String,require:true},
-    "price":{type:Number,require:true},
-    "quantity":{type:Number,require:true},
+    "ratings":String,
+    "ratingcount":String,
+    "type":String,
+    "img":String,
+    "productbrand":String,
+    "product-price":String,
+    "product-sizeButton":String,
+    "price":String,
+    "product-discountPercentage":Number,
+    "id":Number,
+    "range":String,
+    "discountrange":String,
+    "quantity":Number,
     "userId":{type:String,require:true}
 })
 const userProduct=mongoose.model("userproducts",schema)

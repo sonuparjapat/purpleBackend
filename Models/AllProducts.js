@@ -3,6 +3,7 @@ const mongoose=require("mongoose")
 const schema=mongoose.Schema({
     "ratings":String,
 "ratingcount":String,
+"type":String,
 "img":String,
 "productbrand":String,
 "product-price":String,

@@ -34,7 +34,7 @@ if(data){
         var token = jwt.sign({authorId:data._id}, 'sonu');
         res.status(200).json({msg:"Login Successfully","token":token})
       }else{
-        res.status(400).send({"msg":err})
+        res.status(400).send({"msg":"!Please Check Your Password"})
       }
     });
 }else{
