@@ -31,7 +31,7 @@ const data=await userModel.findOne({"email":email})
 if(data){
     bcrypt.compare(password, data.password, function(err, result) {
       if(result){
-        var token = jwt.sign({authorId:data._id}, 'sonu');
+        var token = jwt.sign({authorId:data._id}, 'sonu',{ expiresIn: 60 * 30 });
         res.status(200).json({msg:"Login Successfully","token":token})
       }else{
         res.status(400).send({"msg":"!Please Check Your Password"})
