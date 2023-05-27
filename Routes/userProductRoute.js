@@ -12,6 +12,7 @@ let sum=0
         let sum=0
         let sumafterdiscount=0
         let discount=0
+        let saving=0
         for(let key of data){
             sum+=Number(key["product-price"])*Number(key.quantity)
             // console.log(key)
@@ -26,7 +27,8 @@ let sum=0
             }
            
         }
-        res.status(200).json({msg:"success","data":data,"sum":sum,"totalafterdiscount":Math.ceil(sumafterdiscount)})
+        saving=sum-sumafterdiscount
+        res.status(200).json({msg:"success","data":data,"sum":sum,"totalafterdiscount":Math.round(sumafterdiscount),"savings":Math.round(saving)})
     }catch(err){
         res.status(400).send({msg:"something Going Wrong"})
     }
