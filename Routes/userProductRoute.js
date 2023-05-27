@@ -5,9 +5,28 @@ const productRouter=express.Router()
 productRouter.get("/userproduct",async(req,res)=>{
 // console.log(await userProduct.find({"userId":req.body.userId}))
 // console.log(req.body)
+let sum=0
+
     try{
         const data=await userProduct.find({"userId":req.body.userId})
-        res.status(200).json({msg:"success","data":data})
+        let sum=0
+        let sumafterdiscount=0
+        let discount=0
+        for(let key of data){
+            sum+=Number(key["product-price"])*Number(key.quantity)
+            // console.log(key)
+            // console.log(key["product-discountPercentage"])
+            if(key["product-discountPercentage"]){
+                let x=Number(key["product-price"])*(Number(key.quantity))
+        
+                // console.log(x)
+                let z=x*(key["product-discountPercentage"]/100)
+           
+                sumafterdiscount=sumafterdiscount+(x-z)
+            }
+           
+        }
+        res.status(200).json({msg:"success","data":data,"sum":sum,"totalafterdiscount":Math.ceil(sumafterdiscount)})
     }catch(err){
         res.status(400).send({msg:"something Going Wrong"})
     }
