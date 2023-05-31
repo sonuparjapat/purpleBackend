@@ -63,6 +63,7 @@ productRouter.patch("/userproduct/:id",async(req,res)=>{
     }else{
         try{
             await userProduct.findByIdAndUpdate({"_id":id},req.body)
+            
             res.status(200).send({"msg":"success","data":"updated successfully"})
         }catch(err){
             res.status(400).send({"msg":"error","data":"something going wrong"})
