@@ -70,7 +70,7 @@ res.status(200).json({"msg":`data updated with id:-${id}`})
 
 
 })
-allproductRoute.delete("/delete",async(req,res)=>{
+allproductRoute.delete("/delete/:id",async(req,res)=>{
     const {id}=req.params
     
     let data=await allproducts.findOne({"_id":id})
