@@ -32,6 +32,13 @@ if(data){
     bcrypt.compare(password, data.password, function(err, result) {
       if(result){
         var token = jwt.sign({authorId:data._id}, 'sonu',{ expiresIn: 60 * 60 });
+        res.cookie("usertoken",token,{
+            httpOnly: true, // Cookie cannot be accessed by client-side JavaScript
+    secure: true, // Cookie can only be transmitted over HTTPS
+    sameSite: 'strict', // Cookie is only sent in first-party context
+    maxAge: 86400000, // Expiration time in milliseconds (1 day)
+    path: '/', // Cookie is accessible from all paths
+        })
         res.status(200).json({msg:"Login Successfully","token":token,"username":data.name})
       }else{
         res.status(400).send({"msg":"!Please Check Your Password"})

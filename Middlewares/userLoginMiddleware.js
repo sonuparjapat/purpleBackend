@@ -1,7 +1,12 @@
 var jwt = require('jsonwebtoken');
 
 const auth=async(req,res,next)=>{
+
 const token=req.headers.authorization
+const x=req.cookies.usertoken
+console.log(x)
+// console.log(req.cookies)
+// console.log(token)
 if(token){
   
     try{
@@ -9,7 +14,7 @@ if(token){
        
          if(decoded){
     
-
+// console.log(decoded.authorId)
 
 req.body.userId=decoded.authorId
 next()
