@@ -18,6 +18,7 @@ app.use("/userdata",productRouter)
 app.listen(8080,async()=>{
 
    try{
+      console.log("waiting for connection")
     await connection
 
     console.log("connected to db")
