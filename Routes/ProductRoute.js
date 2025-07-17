@@ -21,24 +21,28 @@ allproductRoute.delete("/deleteall",async(req,res)=>{
         res.status(400).send({msg:"something going wrong"})
     }
     })
-allproductRoute.get("/all",async(req,res)=>{
-const {limit,page,range,discountrange,productbrand}=req.query
-const allquery={}
-if(productbrand){
-    allquery.productbrand=productbrand
-}
-if(range){
-  
-    allquery.range=range
-}
-if(discountrange){
-    allquery.discountrange=discountrange
-}
+
+allproductRoute.get("/all", async (req, res) => {
+    const { limit = 10, page = 1, range, discountrange, productbrand } = req.query;
+    const allquery = {};
+
+    if (productbrand) {
+        allquery.productbrand = { $in: Array.isArray(productbrand) ? productbrand : [productbrand] };
+    }
+    if (range) {
+        allquery.range = { $in: Array.isArray(range) ? range : [range] };
+    }
+    if (discountrange) {
+        allquery.discountrange = { $in: Array.isArray(discountrange) ? discountrange : [discountrange] };
+    }
 
 
-    const data=await allproducts.find(allquery).skip((page*limit)-limit).limit(limit)
-    res.status(200).json({"msg":"success","data":data})
-})
+
+    const skipCount = (Number(page) - 1) * Number(limit);
+    const data = await allproducts.find(allquery).skip(skipCount).limit(Number(limit));
+
+    res.status(200).json({ msg: "success", data });
+});
 allproductRoute.get("/single/:id",async(req,res)=>{
   const {id}=req.params
   
@@ -88,4 +92,23 @@ allproductRoute.delete("/delete/:id",async(req,res)=>{
     
     
     })
+
+allproductRoute.patch("/update",async(req,res)=>{
+   try{
+
+    await allproducts.updateMany(
+    { productbrand: "Iba", type: "Lipstick" },
+    {
+        $set: {
+            img: "https://i0.wp.com/beyondnorm.com/wp-content/uploads/2017/09/img_74891.jpg?fit=1620%2C1215&ssl=1"
+        }
+    })
+    return res?.status(200).json({msg:"Updated Successfully"})
+
+}catch{
+        console.log(err?.message)
+    }}
+);
+
+
 module.exports={allproductRoute}
